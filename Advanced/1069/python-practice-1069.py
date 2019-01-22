@@ -24,15 +24,18 @@ def sortNumber(digits, direction):
     return result
 
 def main():
-    difference = 0
-    inputDigit = input()
 
-    while (difference != 6174):
+    difference = -1
+
+    inputDigit = 9616
+    # inputDigit = input()
+
+    while (difference != 6174 and difference != 0):
         subtract1 = sortNumber(inputDigit, -1)
         subtract2 = sortNumber(inputDigit, 1)
         difference = subtract1 - subtract2
         inputDigit = difference
-        print(str(subtract1)+' - '+str(subtract2)+' = '+str(difference))
+        print("%04d - %04d = %04d" % (subtract1, subtract2 ,difference))
 
 if __name__ == '__main__':
     main()
