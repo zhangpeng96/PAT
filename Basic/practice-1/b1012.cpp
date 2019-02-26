@@ -4,17 +4,6 @@
 using namespace std;
 
 
-int maxNumber(int count, int dig[])
-{
-	int temp = 0;
-	for (int i = 0; i < count; i++)	{
-		if (dig[i] > temp) {
-			temp = dig[i];
-		}
-	}
-	return temp;
-}
-
 bool divide (int dig, int remainder) {
 	if (dig % 5 == remainder) {
 		return true;
@@ -36,10 +25,11 @@ bool isEven (int dig) {
 
 int main() {
 	
-	int number, list[254], output[5];
+	int number, list[254], output[5], flag[5];
 	//memset(output, 0, sizeof(output));
 	for (int i = 0; i < 5; i++) {
 		output[i] = 0;
+		flag[i] = 0;
 	}
 	cin >> number;
 	for (int i = 0; i < number; i++) {
@@ -53,20 +43,25 @@ int main() {
 
 	for (int i = 0; i < number; i++) {
 		if (divide(list[i], 0) && isEven(list[i]) ) {
+			flag[0] = 1;
 			output[0] += list[i];
 		}
 		if (divide(list[i], 1)) {
+			flag[1] = 1;
 			sign *= -1;
 			output[1] += list[i] * sign;
 		}
 		if (divide(list[i], 2)) {
+			flag[2] = 1;
 			output[2] ++;
 		}
 		if (divide(list[i], 3)) {
+			flag[3] = 1;
 			count++;
 			output[3] += list[i];
 		}
 		if (divide(list[i], 4)) {
+			flag[4] = 1;
 			if (list[i] > max) {
 				max = list[i];
 			}
@@ -74,7 +69,11 @@ int main() {
 	}
 
 	average = (float)output[3] / count;
-	cout << output[0] << " " << output[1] << " " << output[2] << " " << setprecision(1) << fixed << average << " " << max << endl;
+	if (flag[0]) cout << output[0] << " "; else cout << "N ";
+	if (flag[1]) cout << output[1] << " "; else cout << "N ";
+	if (flag[2]) cout << output[2] << " "; else cout << "N ";
+	if (flag[3]) cout << setprecision(1) << fixed << average << " "; else cout << "N ";
+	if (flag[4]) cout << max << endl; else cout << "N" << endl;
 
 	return 0;
 }
