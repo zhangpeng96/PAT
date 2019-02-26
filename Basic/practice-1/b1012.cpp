@@ -25,8 +25,7 @@ bool isEven (int dig) {
 
 int main() {
 	
-	int number, list[254], output[5], flag[5];
-	//memset(output, 0, sizeof(output));
+	int number, list[1000], output[5], flag[5];
 	for (int i = 0; i < 5; i++) {
 		output[i] = 0;
 		flag[i] = 0;
