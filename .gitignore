@@ -1,0 +1,33 @@
+# Object files
+*.o
+*.ko
+
+# Libraries
+*.lib
+*.a
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.sdf
+*.opensdf
+*.obj
+*.idb
+*.app
+*.sln
+*.vcxproj
+*.vcxproj.*
+*.suo
+*.ilk
+*.log
+*.pdb
+*.tlog
+*.lastbuildstate
+
+
