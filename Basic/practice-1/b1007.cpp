@@ -12,7 +12,7 @@ bool primeCheck(int num) {
 }
 
 int main() {
-	int counter, N, prime[1000], result;
+	int counter, N, prime[10000], result;
 	counter = 0;
 	result = 0;
 
