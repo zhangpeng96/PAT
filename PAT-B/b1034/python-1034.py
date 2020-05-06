@@ -33,9 +33,12 @@ def simplify(nume, deno):
             nume, deno = gcd_frac(nume, deno)
             nume = nume % deno
         elif nume < 0:
-            add = int(nume / deno) - 1 if abs(nume) > deno else 0
+            add = int(nume / deno) if abs(nume) > deno else 0
             nume, deno = gcd_frac(nume, deno)
-            nume = abs(add) * deno + nume
+            if add == 0:
+                nume = nume - add * deno
+            else:
+                nume = abs(nume - add * deno)
         elif nume == 0:
             add, nume, deno = 0, 0, 0
     else:
@@ -82,7 +85,10 @@ def calc_mul(num1, num2):
 
 def calc_div(num1, num2):
     if num2[0]:
-        return calc_mul(num1, (num2[1], num2[0]))
+        if num2[0] < 0:
+            return calc_mul(num1, (-num2[1], -num2[0]))
+        elif num2[0] > 0:
+            return calc_mul(num1, (num2[1], num2[0]))
     else:
         return (None, None)
 
@@ -107,4 +113,5 @@ if __name__ == '__main__':
         tuple(map(int, x.split('/'))), input_str.split()
     ))
     calc(*input_frac)
+    # print(frac_format(-24, 12))
     # print(input_frac)
