@@ -2,8 +2,8 @@
     @name      : b1034
     @version   : 20.506
     @author    : zhangpeng96
-    @test_time : 
-    @pass_rate : 
+    @test_time : 146'01"
+    @pass_rate : all
 '''
 
 def gcd(a, b):
@@ -102,16 +102,9 @@ def calc(frac1, frac2):
 
 
 if __name__ == '__main__':
-    # simplify(-9, 6)
-    # print(gcd(-4, -12))
-    # print(lcm_frac(5, 6, 2, 9))
-    # print(calc_div((-5, 6), (0, 9)))
-    # frac_format(0, 9)
-    input_str = '2/3 -4/2'
+    # input_str = '2/3 -4/2'
     # input_str = '5/3 0/6'
     input_frac = list(map(lambda x:
-        tuple(map(int, x.split('/'))), input_str.split()
+        tuple(map(int, x.split('/'))), input().split()
     ))
     calc(*input_frac)
-    # print(frac_format(-24, 12))
-    # print(input_frac)
