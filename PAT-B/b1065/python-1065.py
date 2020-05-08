@@ -1,9 +1,9 @@
 '''
     @name      : b1065
-    @version   : 20.0508
+    @version   : 20.0508.2
     @author    : zhangpeng96
     @test_time : 42'00"
-    @pass_rate : p1 format, p3, p4 failed
+    @pass_rate : p1 format, p3 failed
 '''
 
 partner_count = int(input())
@@ -15,7 +15,10 @@ partner_set_list = [set(map(int, input().split())) for _ in range(0, partner_cou
 # party_set = set(map(int, '55555 44444 10000 88888 22222 11111 23333'.split()))
 party_count = int(input())
 
-party_set = set(map(int, input().split()))
+if party_count:
+    party_set = set(map(int, input().split()))
+else:
+    party_set = set()
 
 for partner_set in partner_set_list:
     if partner_set.issubset(party_set):
