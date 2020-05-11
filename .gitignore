@@ -1,5 +1,14 @@
 # Temp
 .sublime/
+.test/
+.temp/
+
+# Templates
+template/
+
+# Office documents
+*.xlsx
+*.docx
 
 # Object files
 *.o
