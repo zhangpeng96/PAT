@@ -1,9 +1,9 @@
 '''
     @name      : b1094
-    @version   : 20.0512
+    @version   : 20.0512.2
     @author    : zhangpeng96
-    @test_time : 27'50"
-    @pass_rate : p2 failed
+    @test_time : 30'00"
+    @pass_rate : all
 '''
 
 import math
@@ -22,6 +22,7 @@ def prime(n):
 length, count = tuple(map(int, input().split()))
 big_int = input()
 
+template = '{:0' + str(count) + '}'
 combation = len(big_int) - count + 1
 save = None
 
@@ -31,11 +32,6 @@ for data in map(lambda i: int(big_int[i:i+count]), [i for i in range(combation)]
         break
 
 if save:
-    print(save)
+    print(template.format(save))
 else:
     print('404')
-
-
-
-
-
