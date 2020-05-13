@@ -1,4 +1,10 @@
-
+'''
+    @name      : b1031
+    @version   : 20.0513
+    @author    : zhangpeng96
+    @test_time : 16'32"
+    @pass_rate : all
+'''
 
 weight = (7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2)
 z_map = ['1','0','X','9','8','7','6','5','4','3','2']
@@ -13,15 +19,14 @@ def verify(id_str):
     return checkout
 
 
-# count = int(input())
-# number_list = [input() for _ in range(count)]
-number_list = ['320124198808240056','12010X198901011234','110108196711301866','37070419881216001X']
+count = int(input())
+number_list = [input() for _ in range(count)]
+# number_list = ['320124198808240056','12010X198901011234','110108196711301866','37070419881216001X']
 # number_list = ['320124198808240056','110108196711301862']
 
 wrong_list = list(filter(lambda x: not verify(x), number_list))
 
 if wrong_list:
-    print(len(wrong_list))
     [print(wrong) for wrong in wrong_list]
 else:
     print('All passed')
