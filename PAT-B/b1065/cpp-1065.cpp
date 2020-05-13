@@ -1,23 +1,21 @@
 /*
     @name      : b1065
-    @version   : 20.0512
+    @version   : 20.0513
     @author    : zhangpeng96
-    @test_time :
-    @pass_rate :
+    @test_time : 40'00"
+    @pass_rate : p3 timeout
 */
 
 #include <iostream>
-#include <map>
 #include <set>
 #include <vector>
 #include <algorithm>
-
 using namespace std;
 
 
 int main() {
     ios::sync_with_stdio(false);
-    freopen("test_point.txt", "r", stdin);
+//    freopen("test_point.txt", "r", stdin);
     int pair_count, party_count;
 
     vector<set<int>> pair;
@@ -37,18 +35,25 @@ int main() {
         party.insert(tmp);
     }
     
-    
     for (auto &x : pair) {
-    	bool result;
-//    	result = includes(x.begin(), x.end(), party.begin(), party.end());
-    	result = x < party;
-//    	set_difference(x.begin(), x.end(), party.begin(), party.end(), inserter(party, party.begin() ) );
-        cout << x.size() << " " << result << endl;
+    	if (includes(party.begin(), party.end(), x.begin(), x.end())) {
+			for (set<int>::iterator it = x.begin(); it != x.end(); ++it) {
+				party.erase(*it);
+			}
+		}
     }
-    
+
+    cout << party.size() << endl;
     set<int>::iterator it;
     for(it = party.begin(); it != party.end(); it++) {
-        cout << *it << " ";
-    }
-    
+    	if (it != party.begin()) {
+    		cout << " ";
+		}
+        cout << *it;
+	}
 }
+
+/*
+	References
+	- http://www.cplusplus.com/reference/set/set/erase/
+*/
