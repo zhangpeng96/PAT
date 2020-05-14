@@ -1,31 +1,37 @@
 '''
     @name      : b1062
-    @version   : 
+    @version   : 20.0514
     @author    : zhangpeng96
-    @test_time : 
-    @pass_rate : all failed
+    @test_time : 21'17"
+    @pass_rate : p1, p2 failed
 '''
 
-import math
+from math import ceil
+
+def gcd(a, b):
+    while b:
+        a %= b
+        a, b = b, a
+    return a
+
+def is_irreducible(frac):
+    if gcd(*frac) == 1 and frac[1] != 1:
+        return True
+    else:
+        return False
 
 
-def main():
-    start, end, divisor = '7/18 13/20 12'.split()
-    start = list(map(int, start.split('/')))
-    end = list(map(int, end.split('/')))
-    divisor = int(divisor)
-    weight = start[1] / divisor
-    start[0] /= weight
-    weight = end[1] / divisor
-    end[0] /= weight
-    ran = sorted([start[0], end[0]])
-    result = []
+input_str = '7/18 13/20 12'
+input_str = input()
 
-    for i in range(math.ceil(ran[0]), math.ceil(ran[1])):
-        result.append('{}/{}'.format(i, divisor))
+divisor = int(input_str.split()[2])
+start, end = tuple(map(
+    lambda x: ceil(int(x.split('/')[0]) / int(x.split('/')[1]) * divisor), 
+    input_str.split()[:2]
+))
 
-    print(' '.join(result))
+frac_list = [(i, divisor) for i in range(start, end)]
 
-
-if __name__ == '__main__':
-    main()
+print(
+    ' '.join(map(lambda x: '{}/{}'.format(*x), filter(is_irreducible, frac_list)))
+)
