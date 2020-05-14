@@ -1,12 +1,12 @@
 '''
     @name      : b1062
-    @version   : 20.0514
+    @version   : 20.0514.3
     @author    : zhangpeng96
-    @test_time : 21'17"
-    @pass_rate : p1 failed
+    @test_time : 63'28"
+    @pass_rate : all
 '''
 
-from math import ceil
+from math import ceil, floor
 
 def gcd(a, b):
     while b:
@@ -25,19 +25,23 @@ input_str = '7/18 13/20 12'
 # input_str = input()
 
 divisor = int(input_str.split()[2])
-# start, end = tuple(map(lambda x: x.split('/')[0] / x.split('/')[1]), input_str.split()[:2])
-# start = ceil(int(x.split('/')[0]) / int(x.split('/')[1]) * divisor)
-# start = ceil(int(x.split('/')[0]) / int(x.split('/')[1]) * divisor)
+start, end = tuple(map(lambda x: int(x.split('/')[0]) / int(x.split('/')[1]), input_str.split()[:2]))
 
-start, end = tuple(
-    sorted(
-        map(
-        lambda x: ceil(int(x.split('/')[0]) / int(x.split('/')[1]) * divisor), 
-        input_str.split()[:2]
-    )
-))
+if start > end:
+    start, end = end, start
+
+start = ceil((start * divisor) + 1e-7)
+end = floor((end * divisor) - 1e-7)
+
+frac_list = [(i, divisor) for i in range(start, end+1)]
+
+'''
+    Alternative 
+
+end = ceil((end * divisor) - 1e-7)
 
 frac_list = [(i, divisor) for i in range(start, end)]
+'''
 
 print(
     ' '.join(map(lambda x: '{}/{}'.format(*x), filter(is_irreducible, frac_list)))
