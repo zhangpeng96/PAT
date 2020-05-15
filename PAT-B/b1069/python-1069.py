@@ -1,31 +1,30 @@
 '''
     @name      : b1069
-    @version   : 
+    @version   : 20.0515
     @author    : zhangpeng96
     @test_time : 
     @pass_rate : p0, p3 failed
 '''
 
-def main():
-    m, n, s = list(map(int, input().split()))
-    data = []
-    result = []
-    data = list(input() for i in range(0, m))
-    for i in range(s-1, len(data), n):
-        if data[i] in result:
-            for j in range(i, len(data)):
-                if data[j] not in data:
-                    result.append(data[j])
-                    break
-        else:
-            result.append(data[i])
+count, gap, start = tuple(map(int, '9 3 2'.split()))
 
-    if len(result):
-        for r in result:
-            print(r)
+accounts = ['Imgonnawin!','PickMe','PickMeMeMeee','LookHere','Imgonnawin!','TryAgainAgain','TryAgainAgain','Imgonnawin!','TryAgainAgain']
+accounts = ['PickMe','Imgonnawin!','TryAgainAgain']
+
+
+# count, gap, start = tuple(map(int, input().split()))
+# accounts = [input() for _ in range(count)]
+
+selected = []
+
+for i, ac in enumerate(accounts[start-1::gap]):
+    if ac in selected:
+        selected.append(accounts[i+1])
     else:
-        print('Keep going...')
+        selected.append(ac)
 
 
-if __name__ == '__main__':
-    main()
+if selected:
+    print('\n'.join(selected))
+else:
+    print('Keep going...')
