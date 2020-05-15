@@ -1,9 +1,9 @@
 '''
     @name      : b1027
-    @version   : 20.0515
+    @version   : 20.0515.2
     @author    : zhangpeng96
-    @test_time : 
-    @pass_rate : p0,p3 format error
+    @test_time : 40'00"
+    @pass_rate : all
 '''
 
 def star_count(n):
@@ -14,10 +14,10 @@ def star_width(n):
 
 def draw_sand_glass(n, token = '*'):
     stars = [star_width(i) for i in range(1, n+1)]
-    width = max(stars)
-    formats = '{:^' + str(width) + '}'
+    width = max(stars) // 2
     for star in stars[::-1] + stars[1:]:
-        print(formats.format(token * star ))
+        blank = width - star//2
+        print(' ' * blank + token *star)
 
 def greatest_use(provide):
     count = 1
