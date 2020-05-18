@@ -1,6 +1,6 @@
 '''
     @name      : b1058
-    @version   : 20.0517
+    @version   : 20.0517.2
     @author    : zhangpeng96
     @test_time : 
     @pass_rate : p3 timeout
@@ -35,7 +35,12 @@ wrong_dict = sorted(wrong_dict.items(), key = lambda x:(-x[1], x[0]) )
 wrong_cnt = wrong_dict[0][1]
 
 if wrong_cnt:
-    wrongs = map(lambda y: str(y[0]), filter(lambda x:x[1] == wrong_cnt, wrong_dict))
+    wrongs = []
+    for wrong in wrong_dict:
+        if wrong[1] == wrong_cnt:
+            wrongs.append(str(wrong[0]))
+        else:
+            break
     print('{} {}'.format(wrong_cnt, ' '.join(wrongs)))
 else:
     print('Too simple')
