@@ -1,9 +1,9 @@
 '''
     @name      : b1003
-    @version   : 20.0525
+    @version   : 20.0525.2
     @author    : zhangpeng96
-    @test_time : 45'58"
-    @pass_rate : p1, p5 failed
+    @test_time : 54'13"
+    @pass_rate : all
 '''
 
 import re
@@ -22,13 +22,21 @@ def case_2(strs):
     return False
 
 def case_3(strs):
-    result = re.split(r'P(.*)AT', strs)
-    if len(result) == 3:
-        a, b, ca = result
-        c = ca[:-len(a)] if ca.endswith(a) else ca
-        origin = '{}P{}T{}'.format(a,b,c)
-        if case_1(origin) and case_2(origin):
+    def unpack(s):
+        r = re.split(r'P(.*)AT', s)
+        if len(r) == 3:
+            a, b, ca = r
+            c = ca[:-len(a)] if ca.endswith(a) else ca
+            return '{}P{}T{}'.format(a,b,c)
+        else:
+            return False
+
+    s = unpack(strs)
+    while s:
+        if case_2(s):
             return True
+        else:
+            s = unpack(s)
     return False
 
 
@@ -37,11 +45,16 @@ def case_3(strs):
 
 count = int('8')
 check_list = ['PAT','PAAT','AAPATAA','AAPAATAAAA','xPATx','PT','Whatever','APAAATAA']
+check_list = ['PPPAAATTT','TAP','AAPTAA','AAPAATAAAAAA','AAAPAATAAAAAA','AAAPAAATAAAAAAAAA']
+# NO,NO,NO,NO,YES,YES
 
 for check in check_list:
-    if case_1(check) and (case_2(check) or case_3(check)):
-        print('YES')
+    if case_1(check):
+        if case_2(check):
+            print('YES')
+        elif case_3(check):
+            print('YES')
+        else:
+            print('NO')
     else:
         print('NO')
-    # print(case_1(check),case_2(check), case_3(check))
-    # print(case_1(check) and (case_2(check) or case_3(check)))
