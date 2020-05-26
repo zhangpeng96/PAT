@@ -1,9 +1,9 @@
 '''
     @name      : b1068
-    @version   : 20.0526.2
+    @version   : 20.0526.3
     @author    : zhangpeng96
-    @test_time : 106'20"
-    @pass_rate : p5 failed, p4 timeout
+    @test_time : 122'00"
+    @pass_rate : p4 timeout
 '''
 
 def check_bit(bit, checks, gap):
@@ -31,6 +31,23 @@ def search_bit(bitmap, x, y, right, bottom, gap):
         checks += [ bitmap[x-1][y], bitmap[x-1][y+1], bitmap[x][y+1], bitmap[x+1][y+1], bitmap[x+1][y], bitmap[x+1][y-1], bitmap[x][y-1], bitmap[x-1][y-1]]
     return check_bit(bitmap[x][y], checks, gap)
 
+def search_bit2(bitmap, x, y, right, bottom, gap):
+    checks = []
+    if right == 0:
+        if x == 0:
+            checks += [ bitmap[x+1][y] ]
+        elif x == bottom:
+            checks += [ bitmap[x-1][y] ]
+        else:
+            checks += [ bitmap[x-1][y] + bitmap[x+1][y] ]
+    elif bottom == 0:
+        if y == 0:
+            checks += [ bitmap[x][y+1] ]
+        elif y == right:
+            checks += [ bitmap[x][y-1] ]
+        else:
+            checks += [ bitmap[x][y-1] + bitmap[x][y+1] ]
+    return check_bit(bitmap[x][y], checks, gap)
 
 def single_element(iters, bitmap_line):
     single = []
@@ -43,20 +60,32 @@ def single_element(iters, bitmap_line):
 width, height, gap = tuple(map(int, input().split()))
 bitmap = [ list( map(int, input().split()) ) for _ in range(height) ]
 
-# width, height, gap = map(int, '8 6 200'.split())
-# inputs = ['0      0    0        0        0        0        0        0','65280    65280    65280    16711479 65280    65280    65280    65280','16711479 65280    65280    65280    16711680 65280    65280    65280','65280    65280    65280    65280    65280    65280    165280   165280','65280    65280    16777015 65280    65280    165280   65480    165280','16777215 16777215 16777215 16777215 16777215 16777215 16777215 16777215']
+# width, height, gap = map(int, '2 1 100'.split())
+# inputs = ['199 33']
 # bitmap = [ list( map(int, i.split()) ) for i in inputs ]
 bitmap_line = sum(bitmap, [])
 
 right, bottom = width-1, height-1
 unique, option = {}, []
 
-for x in range(height):
-    for y in range(width):
-        if search_bit(bitmap, x, y, right, bottom, gap):
-            bits = bitmap[x][y]
-            option.append(bits)
-            unique.update({ bits: (y+1,x+1) })
+if width == 1 and height == 1:
+    option.append(bitmap[0][0])
+    unique.update({ bitmap[0][0]: (1, 1)})
+
+elif width == 1 or height == 1:
+    for x in range(height):
+        for y in range(width):
+            if search_bit2(bitmap, x, y, right, bottom, gap):
+                bits = bitmap[x][y]
+                option.append(bits)
+                unique.update({ bits: (y+1,x+1) })
+else:
+    for x in range(height):
+        for y in range(width):
+            if search_bit(bitmap, x, y, right, bottom, gap):
+                bits = bitmap[x][y]
+                option.append(bits)
+                unique.update({ bits: (y+1,x+1) })
 
 option = single_element(option, bitmap_line)
 
