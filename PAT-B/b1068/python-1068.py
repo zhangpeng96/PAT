@@ -1,45 +1,70 @@
 '''
     @name      : b1068
-    @version   : 20.0509
+    @version   : 20.0526
     @author    : zhangpeng96
-    @test_time : 60'00"
+    @test_time : 102'50"
     @pass_rate : p3, p5 failed, p4 timeout
 '''
 from collections import Counter
 
-def diff_by_surround(arr, x, y, gap):
-    x,y = y-1,x-1
-    value = arr[x][y]
-    if value in unique_pixel:
-        # print('>', x,y, value)
-        return all(map(lambda n: abs(value-n) > gap,
-                        [arr[x-1][y-1], arr[x][y-1], arr[x+1][y-1], arr[x-1][y], arr[x+1][y], arr[x-1][y+1], arr[x][y+1], arr[x+1][y+1]]))
+def check_bit(bit, checks, gap):
+    return all( map(lambda n: abs(bit - n) > gap, checks) )
+
+def search_bit(bitmap, x, y, right, bottom, gap):
+    checks = []
+    if x == 0 and y == 0:
+        checks += [ bitmap[x][y+1], bitmap[x+1][y+1], bitmap[x+1][y] ]
+    elif x == 0 and 0 < y < right:
+        checks += [ bitmap[x][y+1], bitmap[x+1][y+1], bitmap[x+1][y], bitmap[x+1][y-1], bitmap[x][y-1] ]
+    elif x == 0 and y == right:
+        checks += [ bitmap[x+1][y], bitmap[x+1][y-1], bitmap[x][y-1] ]
+    elif 0 < x < bottom and y == right:
+        checks += [ bitmap[x+1][y], bitmap[x+1][y-1], bitmap[x][y-1], bitmap[x-1][y-1], bitmap[x-1][y] ]
+    elif x == bottom and y == right:
+        checks += [ bitmap[x][y-1], bitmap[x-1][y-1], bitmap[x-1][y] ]
+    elif x == bottom and  0 < y < right:
+        checks += [ bitmap[x-1][y], bitmap[x-1][y+1], bitmap[x][y+1], bitmap[x][y-1], bitmap[x-1][y-1] ]
+    elif x == bottom and y == 0:
+        checks += [ bitmap[x-1][y], bitmap[x-1][y+1], bitmap[x][y+1] ]
+    elif 0 < x < bottom and y == 0:
+        checks += [ bitmap[x-1][y], bitmap[x-1][y+1], bitmap[x][y+1], bitmap[x+1][y+1], bitmap[x+1][y] ]
     else:
-        return False
+        checks += [ bitmap[x-1][y], bitmap[x-1][y+1], bitmap[x][y+1], bitmap[x+1][y+1], bitmap[x+1][y], bitmap[x+1][y-1], bitmap[x][y-1], bitmap[x-1][y-1]]
+    return check_bit(bitmap[x][y], checks, gap)
 
 
-# width, height, gap = tuple(map(int, '8 6 200'.split()))
+def single_element(iters):
+    single = []
+    for value, times in Counter(iters).most_common()[::-1]:
+        if times == 1:
+            single += [value]
+        else:
+            break
+    return single
+
+
 width, height, gap = tuple(map(int, input().split()))
+bitmap = tuple([ tuple( map(int, input().split()) ) for _ in range(height) ])
 
-# input_arr = ['0    0    0        0        0        0        0        0','65280    65280    65280    16711479 65280    65280    65280    65280','16711479 65280    65280    65280    16711680 65280    65280    65280','65280    65280    65280    65280    65280    65280    165280   165280','65280    65280    16777015 65280    65280    165280   65480    165280','16777215 16777215 16777215 16777215 16777215 16777215 16777215 16777215']
+# width, height, gap = map(int, '8 6 200'.split())
+# inputs = ['0      0    0        0        0        0        0        0','65280    65280    65280    16711479 65280    65280    65280    65280','16711479 65280    65280    65280    16711680 65280    65280    65280','65280    65280    65280    65280    65280    65280    165280   165280','65280    65280    16777015 65280    65280    165280   65480    165280','16777215 16777215 16777215 16777215 16777215 16777215 16777215 16777215']
+# bitmap = tuple([ tuple( map(int, i.split()) ) for i in inputs ])
 
-input_arr = [input() for i in range(height)]
+right, bottom = width-1, height-1
+unique, option = {}, []
 
-pixel_matrix = [[int(element) for element in line.split()] for line in input_arr]
+for x in range(height):
+    for y in range(width):
+        if search_bit(bitmap, x, y, right, bottom, gap):
+            bits = bitmap[x][y]
+            option.append(bits)
+            unique.update({ bits: (y+1,x+1) })
 
-unique_pixel = set(map(lambda x:x[0], filter(lambda x:x[1] == 1 ,Counter(sum(pixel_matrix, [])).most_common())))
+option = single_element(option)
 
-diff_list = []
-
-for i in range(2, width):
-    for j in range(2, height):
-        if diff_by_surround(pixel_matrix, i, j, gap):
-            diff_list.append((i, j, pixel_matrix[j-1][i-1]))
-
-
-if len(diff_list) == 1:
-    print('({}, {}): {}'.format(*diff_list[0]))
-elif len(diff_list) == 0:
-    print('Not Exist')
-else:
+if len(option) == 1:
+    print('({}, {}): {}'.format(*unique[option[0]], option[0]))
+elif len(option) > 1:
     print('Not Unique')
+elif len(option) == 0:
+    print('Not Exist')
