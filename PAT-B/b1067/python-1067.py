@@ -1,9 +1,9 @@
 '''
     @name      : b1067
-    @version   : 20.0527
+    @version   : 20.0527.2
     @author    : zhangpeng96
     @test_time : 24'10"
-    @pass_rate : p2,p3,p4 failed
+    @pass_rate : all
 '''
 
 # correct, attempt = 'Correct%pw 3'.split()
@@ -14,9 +14,8 @@ attempt = int(attempt)
 passwords = []
 password = input()
 while password != '#':
-    password = input()
     passwords.append(password)
-passwords = passwords[:-1]
+    password = input()
 
 for password in passwords:
     if password == correct:
