@@ -1,15 +1,15 @@
 '''
     @name      : a1063
-    @version   : 20.0531
+    @version   : 20.0531.2
     @author    : zhangpeng96
     @test_time : 27'36"
-    @pass_rate : p3, p4 timeout
+    @pass_rate : p4 timeout
 '''
 
 case_count = int(input())
 cases = [input() for _ in range(case_count)]
 query_count = int(input())
-queries = [tuple(map(int, input().split())) for _ in range(query_count)]
+queries = [tuple(input().split()) for _ in range(query_count)]
 
 # case_count = int('3')
 # cases = ['3 99 87 101','4 87 101 5 87','7 99 101 18 5 135 18 99']
