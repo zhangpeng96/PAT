@@ -3,7 +3,7 @@
     @version   : 20.0602
     @author    : zhangpeng96
     @test_time : 99'19;
-    @pass_rate : 50% pass
+    @pass_rate : 12/20 pass
 '''
 
 def deci_to_radix(n, base, symbol = '0123456789abcdefghijklmnopqrstuvwxyz'):
@@ -19,7 +19,7 @@ def radix_to_deci(n, base, symbol = '0123456789abcdefghijklmnopqrstuvwxyz'):
     return sum( digit * base ** r for r, digit in enumerate(digits) )
 
 def radix_equal(n, common):
-    for r in range(1, 35):
+    for r in range(1, 37):
         if common == radix_to_deci(n, r):
             return r
     return 'Impossible'
