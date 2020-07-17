@@ -1,6 +1,6 @@
 '''
     @name      : a1017
-    @version   : 20.0717
+    @version   : 20.0717.2
     @author    : zhangpeng96
     @test_time : >60'00"
     @pass_rate : all
@@ -23,16 +23,12 @@ window = PQueue()
 [window.put(8*3600) for _ in range(k)]
 
 customers = map(lambda x: ( time_second(x.split()[0]), int(x.split()[1])*60 ), customers)
-customers = sorted(customers, key=lambda x: x[0])
+customers = sorted(filter(lambda x:x[0] <= 61200, customers), key=lambda x: x[0])
 
 wait_time = 0
-people_count = 0
 
 for start, duration in customers:
-    if start > 61200:
-        continue
     wait = window.queue[0]
-    people_count += 1
     if wait <= start:
         window.put(start + duration)
         window.get()
@@ -43,4 +39,4 @@ for start, duration in customers:
         window.get()
         # print('a', wait, wait-start, wait+duration)
 
-print('{:.1f}'.format(wait_time/(people_count*60)))
+print('{:.1f}'.format(wait_time/(len(customers)*60)))
