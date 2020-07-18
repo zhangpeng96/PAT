@@ -1,9 +1,9 @@
 '''
     @name      : a1035
-    @version   : 20.0717
+    @version   : 20.0718
     @author    : zhangpeng96
     @test_time : 22'00"
-    @pass_rate : p2 failed
+    @pass_rate : all
 '''
 
 count = int(input())
@@ -24,4 +24,4 @@ else:
     if count == 1:
         print('There is 1 account and no account is modified')
     else:
-        print('There is %s accounts and no account is modified' % count)
+        print('There are %s accounts and no account is modified' % count)
