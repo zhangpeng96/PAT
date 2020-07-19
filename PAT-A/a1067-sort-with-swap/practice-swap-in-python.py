@@ -1,30 +1,17 @@
-import time
+# import time
 
-number = [0] * 10
-insert = map(int, '3 5 7 2 6 4 9 0 8 1'.split())
-for i, item in enumerate(insert):
-    number[item] = i
+arr = [9, 0, 1, 4, 5, 7, 8, 2, 3, 6]
 
-count = 0
+# arr[0], arr[7] = arr[7], arr[0]
+# print(arr)
 
-def swap(a, b):
-    temp = a
-    b = a
-    a = temp
-    print(number)
-    time.sleep(5)
+# WRONG WAY
+# arr[0], arr[ arr[0] ] = arr[ arr[0] ], arr[0]
+# print(arr)
+# supposed to: [6, 0, 1, 4, 5, 7, 8, 2, 3, 9]
+# actually to: [6, 0, 1, 4, 5, 7, 9, 2, 3, 6]
 
-for i in range(1, len(number)):
-    if i != number[i]:
-        while number[0] != 0:
-            swap(number[0], number[ number[0] ])
-            count += 1
-        if i != number[i]:
-            swap(number[0], number[i])
-            count += 1
-
-print(count)
-
-
-
-
+# RIGHT WAY
+pos = arr[0]
+arr[0], arr[pos] = arr[pos], arr[0]
+print(arr)
