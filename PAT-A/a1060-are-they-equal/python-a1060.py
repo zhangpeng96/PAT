@@ -1,21 +1,22 @@
 """
     @name      : a1060
-    @version   : 20.0719
+    @version   : 20.0719.2
     @author    : zhangpeng96
     @test_time : 32'00"
-    @pass_rate : p3, p5 failed
+    @pass_rate : p3, p5, p6 failed
 """
 
 # precision, digit_1, digit_2 = input().split()
 precision, digit_1, digit_2 = '3 120 128'.split()
+precision, digit_1, digit_2 = '1 0.0 0.1'.split()
 precision, digit_1, digit_2 = int(precision), float(digit_1), float(digit_2)
 
 def exp(digit):
-    digit = int(digit)
-    if digit:
-        return len(str(digit))
+    dig = int(digit)
+    if dig:
+        return len(str(dig))
     else:
-        return 0
+        return int('{:e}'.format(digit).split('e')[1]) + 1
 
 def chopping(digit):
     ep = exp(digit)
