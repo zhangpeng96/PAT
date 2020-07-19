@@ -1,21 +1,20 @@
 """
     @name      : a1067
-    @version   : 20.0719
+    @version   : 20.0719.2
     @author    : zhangpeng96
     @test_time : >60'00"
     @pass_rate : p1 timeout
 """
 
-insert = list(map(int, input().split()))
-n = insert[0]
-insert = insert[1:]
+insert = input().split()
+n = int(insert[0])
 
 count = 0
 number = [0] * n
-for i, item in enumerate(insert):
-    number[item] = i
+for i, item in enumerate(insert[1:]):
+    number[int(item)] = i
 
-for i in range(1, len(number)):
+for i in range(1, n):
     if i != number[i]:
         while number[0] != 0:
             pos = number[0]
