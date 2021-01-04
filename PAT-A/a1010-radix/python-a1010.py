@@ -6,18 +6,19 @@
     @pass_rate : all
 '''
 
+def letter_to_int(n):
+    return '0123456789abcdefghijklmnopqrstuvwxyz'.index(n)
 
 def to_decimal(n, base):
-    symbol = '0123456789abcdefghijklmnopqrstuvwxyz'
-    digits = map(lambda r: symbol.index(r), n[::-1])
+    digits = map(lambda r: letter_to_int(r), n[::-1])
     return sum([ digit * base ** r for r, digit in enumerate(digits) ])
 
-def binary_search(string, num, low=0):
+def binary_search(string, num):
+    low = letter_to_int(max(string)) + 1
     high = max(num, low)
     while low <= high:
         mid = int((low + high) / 2)
         cnum = to_decimal(string, mid)
-        print('>', low, high, mid, cnum, num)
         if cnum == num:
             return mid
         elif cnum > num:
@@ -35,9 +36,7 @@ tag, radix = int(tag), int(radix)
 if tag == 2:
     n1, n2 = n2, n1
 
-num = to_decimal(n1, radix)
-low = '0123456789abcdefghijklmnopqrstuvwxyz'.index(max(n2))+1 # 1 1 1 10 -> 2
-ans = binary_search(n2, num, low)
+ans = binary_search(n2, to_decimal(n1, radix))
 if ans == -1:
     print('Impossible')
 else:
