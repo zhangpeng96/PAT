@@ -35,7 +35,8 @@ if tag == 2:
     n1, n2 = n2, n1
 
 num = to_decimal(n1, radix)
-ans = binary_search(n2, num)
+low = ord(max(n2)) - 87
+ans = binary_search(n2, num, low)
 if ans == -1:
     print('Impossible')
 else:
