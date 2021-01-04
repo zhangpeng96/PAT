@@ -3,7 +3,7 @@
     @version   : 21.0104
     @author    : zhangpeng96
     @test_time : 20'00"
-    @pass_rate : 
+    @pass_rate : all
 '''
 
 # _, pay = map(int, input().split())
@@ -27,6 +27,8 @@ for a in cmap.keys():
         if cmap.get(b) > 1:
             ans.append((a, b))
             break
+        else:
+            continue
     if cmap.get(b) and a <= b:
         ans.append((a, b))
         break
