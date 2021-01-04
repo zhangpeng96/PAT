@@ -3,7 +3,7 @@
     @version   : 21.0104
     @author    : zhangpeng96
     @test_time : 
-    @pass_rate : 6/20 2,7,14,17,18,19 passed
+    @pass_rate : 17/20 0,18,19 failed
 '''
 
 
@@ -15,7 +15,7 @@ def to_decimal(n, base):
 def binary_search(string, num, low=0):
     high = max(num, low)
     while low <= high:
-        mid = (low + high) / 2
+        mid = int((low + high) / 2)
         cnum = to_decimal(string, mid)
         if cnum == num:
             return mid
