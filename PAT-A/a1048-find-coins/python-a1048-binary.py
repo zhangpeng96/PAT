@@ -3,7 +3,7 @@
     @version   : 21.0104
     @author    : zhangpeng96
     @test_time : 12'00"
-    @pass_rate : p1 failed, p3,p4 timeout
+    @pass_rate : p3,p4 timeout
 '''
 
 # _, pay = map(int, input().split())
@@ -15,8 +15,8 @@ coins = list(map(int, '1 2 8 7 2 4 11 15'.split()))
 coins.sort()
 ans = []
 
-def binary_search(coins, b):
-    low = 1
+def binary_search(coins, b, i):
+    low = i + 1
     high = len(coins) - 1
     while low <= high:
         mid = int((low + high) / 2)
@@ -28,9 +28,9 @@ def binary_search(coins, b):
             low = mid + 1
     return -1
 
-for coin in coins:
+for i, coin in enumerate(coins):
     b = pay - coin
-    search = binary_search(coins, b)
+    search = binary_search(coins, b, i)
     if search != -1:
         ans = [coin, search]
         break
