@@ -1,35 +1,42 @@
 '''
     @name      : a1010
-    @version   : 20.0602
+    @version   : 21.0104
     @author    : zhangpeng96
-    @test_time : 99'19;
-    @pass_rate : 12/20 pass
+    @test_time : 
+    @pass_rate : 6/20 2,7,14,17,18,19 passed
 '''
 
-def deci_to_radix(n, base, symbol = '0123456789abcdefghijklmnopqrstuvwxyz'):
-    def digit(n, base):
-        if n < base:
-            return [n]
-        else:
-            return digit(n//base, base) + [n % base]
-    return ''.join(map(lambda i: symbol[i], digit(n, base)))
 
-def radix_to_deci(n, base, symbol = '0123456789abcdefghijklmnopqrstuvwxyz'):
+def to_decimal(n, base):
+    symbol = '0123456789abcdefghijklmnopqrstuvwxyz'
     digits = map(lambda r: symbol.index(r), n[::-1])
-    return sum( digit * base ** r for r, digit in enumerate(digits) )
+    return sum([ digit * base ** r for r, digit in enumerate(digits) ])
 
-def radix_equal(n, common):
-    for r in range(1, 37):
-        if common == radix_to_deci(n, r):
-            return r
-    return 'Impossible'
+def binary_search(string, num, low=0):
+    high = max(num, low)
+    while low <= high:
+        mid = (low + high) / 2
+        cnum = to_decimal(string, mid)
+        if cnum == num:
+            return mid
+        elif cnum > num:
+            high = mid - 1
+        else:
+            low = mid + 1
+    return -1
 
-n1, n2, tag, radix = '6 110 1 10'.split()
-n1, n2, tag, radix = '1 ab 1 2'.split()
+
+# n1, n2, tag, radix = '6 110 1 10'.split()
+# n1, n2, tag, radix = '1 ab 1 2'.split()
+n1, n2, tag, radix = input().split()
 tag, radix = int(tag), int(radix)
 
 if tag == 2:
     n1, n2 = n2, n1
 
-common = radix_to_deci(n1, radix)
-print( radix_equal(n2, common) )
+num = to_decimal(n1, radix)
+ans = binary_search(n2, num)
+if ans == -1:
+    print('Impossible')
+else:
+    print(ans)
