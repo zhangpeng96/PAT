@@ -13,7 +13,7 @@ int main() {
 
     sort(seq.begin(), seq.end());
     for (int i = 0; i < n; i++) {
-        int low = upper_bound(seq.begin() + 1, seq.end(), seq[i] * p) - seq.begin();
+        int low = upper_bound(seq.begin() + 1, seq.end(), (long long) seq[i] * p) - seq.begin();
         ans = max(ans, low - i);
     }
     cout << ans;
