@@ -2,7 +2,7 @@
     @name      : b1080
     @version   : 21.0105
     @author    : zhangpeng96
-    @pass_rate : p3 failed
+    @pass_rate : p3 timeout
 """
 
 p, m, f = map(int, input().split())
@@ -23,7 +23,7 @@ ans_2 = []
 def final(lst):
     p, m, f = map(lambda x: 0 if x == -1 else x, lst)
     if m > f:
-        g = m * 0.4 + f * 0.6
+        g = round(m * 0.4 + f * 0.6)
     else:
         g = f
     if p >= 200 and g >= 60:
@@ -42,7 +42,7 @@ for an in ans.items():
     passed = final(an[1])
     if passed != -1:
         an = list(an)
-        an[1].extend([round(passed)])
+        an[1].extend([passed])
         ans_2.append(an)
 
 ans_2.sort(key=lambda x:(-x[1][3], x[0]))
