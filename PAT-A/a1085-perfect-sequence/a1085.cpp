@@ -2,7 +2,7 @@
     @name      : a1085
     @version   : 21.0105
     @author    : zhangpeng96
-    @pass_rate : p4 timeout, p5 failed
+    @pass_rate : p5 failed
 */
 
 #include <iostream>
@@ -10,7 +10,7 @@
 #include <vector>
 using namespace std;
 
-int binary_search_upper(vector<int> seq, int key, int low, int high) {
+int binary_search_upper(vector<int> &seq, int key, int low, int high) {
     while (low < high) {
         int mid = (low + high) / 2;
         if (seq[mid] > key)
