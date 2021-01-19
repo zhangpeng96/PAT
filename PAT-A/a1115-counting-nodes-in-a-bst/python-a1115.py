@@ -3,8 +3,11 @@
     @version   : 21.0119
     @author    : zhangpeng96
     @test_time : 50'00"
-    @pass_rate : p3,p4 exit, p5 failed
+    @pass_rate : p5 failed
 '''
+
+import sys
+sys.setrecursionlimit(8000)
 
 class BTNode:
     def __init__(self, val):
