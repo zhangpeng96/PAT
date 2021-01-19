@@ -3,7 +3,7 @@
     @version   : 21.0119
     @author    : zhangpeng96
     @test_time : 50'00"
-    @pass_rate : p5 failed
+    @pass_rate : all
 '''
 
 import sys
@@ -43,9 +43,12 @@ bt = BST()
 for node in ins:
     tree = bt.insert(tree, node)
 
-dfs(tree, 1)
+dfs(tree, 0)
 
 res = sorted(node_count.items(), key=lambda x:-x[0])
-n1, n2 = res[0][1], res[1][1]
+if len(res) > 1:
+    n1, n2 = res[0][1], res[1][1]
+else:
+    n1, n2 = res[0][1], 0
 
 print('{} + {} = {}'.format(n1, n2, n1+n2))
