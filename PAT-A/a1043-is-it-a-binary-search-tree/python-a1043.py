@@ -1,10 +1,13 @@
 """
     @name     : a1043
-    @version  : 21.0117
+    @version  : 21.0119
     @author   : zhangpeng96
     @time     : >60'00"
-    @accepted : p5 failed
+    @accepted : all
 """
+
+import sys
+sys.setrecursionlimit(5000)
 
 class BTNode:
     def __init__(self, val):
