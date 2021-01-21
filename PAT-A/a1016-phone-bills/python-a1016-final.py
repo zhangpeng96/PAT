@@ -3,18 +3,18 @@
     @version  : 21.0121
     @author   : zhangpeng96
     @time     : >60'00"
-    @accepted : p3 error
+    @accepted : all
 """
 
 def fee(start, end):
     period = '{} {}'.format(start.split(':',1)[1], end.split(':',1)[1])
     start = list(map(int, start.split(':')))
     end = list(map(int, end.split(':')))
-    part = 60-start[-1] + end[-1]
-    start_h = start[1] * 24 + start[2] + 1
+    part = -start[-1] + end[-1]
+    start_h = start[1] * 24 + start[2]
     end_h = end[1] * 24 + end[2]
     minute = (end_h - start_h)*60 + part
-    part_fee = (60-start[-1]) * price[start[-2]] + end[-1] * price[end[-2]]
+    part_fee = -start[-1] * price[start[-2]] + end[-1] * price[end[-2]]
     amount = sum([price[hour % 24] * 60 for hour in range(start_h, end_h)])
     amount = (amount + part_fee) / 100
     print('{} {} ${:.2f}'.format(period, minute, amount))
