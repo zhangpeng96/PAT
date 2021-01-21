@@ -3,7 +3,7 @@
     @version  : 21.0121
     @author   : zhangpeng96
     @time     : >60'00"
-    @accepted : p1,p2,p3 error
+    @accepted : p3 error
 """
 
 def fee(start, end):
@@ -37,12 +37,16 @@ for name, rec in record:
     i, amount = 0, 0.0
     rec.sort(key=lambda x:x[0])
     month = rec[0][0].split(':')[0]
-    print(name, month)
+    has_record = False
     while i < len(rec)-1:
         if rec[i][1] == 'on-line' and rec[i+1][1] == 'off-line':
+            if not has_record:
+                print(name, month)
+            has_record = True
             dail_amount = fee(rec[i][0], rec[i+1][0])
             amount += dail_amount
             i += 2
             continue
         i += 1
-    print('Total amount: ${:.2f}'.format(amount))
+    if has_record:
+        print('Total amount: ${:.2f}'.format(amount))
