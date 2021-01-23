@@ -21,11 +21,11 @@ def level_order(root, lst):
 
 
 def create(postL, postR, inL, inR):
-    if postL > postR: return -1
+    if postL > postR: return None
     k = inL
     root = Node()
     root.val = post_order[postR]
-    while k <= inR and in_order[k] != post_order[postR]:
+    while k < inR and in_order[k] != post_order[postR]:
         k += 1
     pos = k - inL
     root.left = create(postL, postL+pos-1, inL, k-1)
@@ -49,9 +49,10 @@ def create2(root, start, end):
 post_order = [3, 4, 2, 6, 5, 1]
 in_order = [3, 2, 4, 1, 6, 5]
 
-# tree = create(0, 5, 0, 5)
+tree = create(0, 5, 0, 5)
 # print(tree.val)
 tree = create2(5, 0, 5)
-level_traversal = []
-level_order(tree, level_traversal)
-print(level_traversal)
+
+# level_traversal = []
+# level_order(tree, level_traversal)
+# print(level_traversal)
