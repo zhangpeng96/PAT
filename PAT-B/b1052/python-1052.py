@@ -1,26 +1,29 @@
+"""
+    @name     : b1052
+    @version  : 21.0125
+    @author   : zhangpeng96
+    @time     : 50'00"
+    @accepted : p1,p2 error
+"""
+
+import sys
 import re
 
-def draw_face(sign_id, sign_set):
-    sign_id = map(int, sign_id.split())
-    try:
-        text = '{}({}{}{}){}'.format(*map(lambda i,s: s[i-1], sign_id, sign_set))
-    except:
-        text = 'Are you kidding me? @\\/@'
-    print(text)
-
-
-regex = r'\[(.*?)\]'
-
-# str1 = r'[╮][╭][o][~\][/~]  [<][>]'
-# str2 = r' [╯][╰][^][-][=][>][<][@][⊙]'
-# str3 = r'[Д][▽][_][ε][^]'
-
-hand = [match.group(1) for match in re.finditer(regex, input(), re.MULTILINE)]
-eye = [match.group(1) for match in re.finditer(regex, input(), re.MULTILINE)]
-mouth = [match.group(1) for match in re.finditer(regex, input(), re.MULTILINE)]
-
+hands = sys.stdin.buffer.readline()
+eyes = sys.stdin.buffer.readline()
+mouths = sys.stdin.buffer.readline()
 count = int(input())
-id_list = [input() for i in range(0, count)]
 
-for sign_id in id_list:
-    draw_face(sign_id, [hand, eye, mouth, eye, hand])
+parts = [tuple(map(int, input().split())) for _ in range(count)]
+
+r = re.compile(rb'(?<=\[)(.*?)(?=\])')
+hands = r.findall(hands)
+eyes = r.findall(eyes)
+mouths = r.findall(mouths)
+
+for p1, p2, p3, p4, p5 in parts:
+    try:
+        line = hands[p1-1] + b'(' + eyes[p2-1] + mouths[p3-1] + eyes[p4-1] + b')' + hands[p5-1] + b'\n'
+        sys.stdout.buffer.write(line)
+    except:
+        sys.stdout.buffer.write(b'Are you kidding me? @\/@\n')
