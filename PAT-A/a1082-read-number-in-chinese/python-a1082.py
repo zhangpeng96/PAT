@@ -3,7 +3,7 @@
     @version  : 21.0125
     @author   : zhangpeng96
     @time     : > 6 hours
-    @accepted : p3 error
+    @accepted : all
 """
 
 from math import ceil
@@ -48,14 +48,17 @@ def solve(part):
             words.append( digit[dig] )
     return words
 
-for i in range( ceil(len(number)/4) ):
-    part = number[-(1+i*4):-(5+i*4):-1][::-1]
-    part = solve(part)
-    if part:
-        result.append(suffix[i])
-    result.extend(part)
+if number != '0':
+    for i in range( ceil(len(number)/4) ):
+        part = number[-(1+i*4):-(5+i*4):-1][::-1]
+        part = solve(part)
+        if part:
+            result.append(suffix[i])
+        result.extend(part)
 
-if negative:
-    result.append('Fu')
+    if negative:
+        result.append('Fu')
 
-print(' '.join(result[::-1]).strip())
+    print(' '.join(result[::-1]).strip())
+else:
+    print(digit[0])
