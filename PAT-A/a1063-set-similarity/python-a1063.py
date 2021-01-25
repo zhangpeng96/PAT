@@ -1,15 +1,15 @@
-'''
+"""
     @name      : a1063
-    @version   : 20.0531.2
+    @version   : 21.0125
     @author    : zhangpeng96
-    @test_time : 27'36"
-    @pass_rate : p4 timeout
-'''
+    @test_time : 29'00"
+    @pass_rate : all
+"""
 
 case_count = int(input())
-cases = [input() for _ in range(case_count)]
+cases = [set(input().split()[1:]) for _ in range(case_count)]
 query_count = int(input())
-queries = [tuple(input().split()) for _ in range(query_count)]
+queries = [tuple(map(int, input().split())) for _ in range(query_count)]
 
 # case_count = int('3')
 # cases = ['3 99 87 101','4 87 101 5 87','7 99 101 18 5 135 18 99']
@@ -17,7 +17,4 @@ queries = [tuple(input().split()) for _ in range(query_count)]
 # queries = [tuple(map(int, i.split())) for i in ['1 2','1 3']]
 
 for a, b in queries:
-    a, b = a-1, b-1
-    set_a = set(map(int, cases[a].split()[1:]))
-    set_b = set(map(int, cases[b].split()[1:]))
-    print('{:.1%}'.format( len(set_a & set_b) / len(set_a | set_b) ) )
+    print('{:.1%}'.format( len(cases[a-1] & cases[b-1]) / len(cases[a-1] | cases[b-1]) ) )
