@@ -1,19 +1,19 @@
 """
     @name      : a1067
-    @version   : 20.0719.2
+    @version   : 21.0126
     @author    : zhangpeng96
     @test_time : >60'00"
-    @pass_rate : p1 timeout
+    @pass_rate : all
 """
 
-insert = input().split()
-n = int(insert[0])
+n, *insert = input().split()
+n, insert = int(n), map(int, insert)
+
+number = [0] * n
+for i, dig in enumerate(insert):
+    number[dig] = i
 
 count = 0
-number = [0] * n
-for i, item in enumerate(insert[1:]):
-    number[int(item)] = i
-
 for i in range(1, n):
     if i != number[i]:
         while number[0] != 0:
