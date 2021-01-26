@@ -1,42 +1,56 @@
 """
-    @name      : a1060
-    @version   : 20.0720.1
-    @author    : zhangpeng96
-    @test_time : 32'00"
-    @pass_rate : p3, p5 failed
+    @name     : a1060
+    @version  : 21.0126
+    @author   : zhangpeng96
+    @time     : 54'00"
+    @accepted : p3,p5 error
 """
 
-# precision, digit_1, digit_2 = input().split()
-precision, digit_1, digit_2 = '3 120 128'.split()
-precision, digit_1, digit_2 = '5 0.01234 0.012345'.split()
-precision, digit_1, digit_2 = int(precision), float(digit_1), float(digit_2)
+# prec, a, b = '3 120 128'.split()
+# prec, a, b = '1 1.2300 1.23589'.split()
+prec, a, b = '5 1.2300 1.23589'.split()
+# prec, a, b = '4 0.01234 0.012345'.split()
+# prec, a, b = '5 0.1234 0.12345'.split()
+prec, a, b = '1 12300 12358.9'.split()
+# prec, a, b = '1 00.0 0.000'.split()
 
-def exp(digit):
-    dig = int(digit)
-    a, b = str(digit).split('.')
-    if dig:
-        return len(a)-1
-    elif digit == 0.0:
-        return -1
+prec, a, b = input().split()
+prec, a, b = int(prec), float(a), float(b)
+
+def significance(f):
+    f = str(f)
+    if f.find('e') != -1:
+        return int(f.split('e')[1])
+    if f.startswith('0.'):
+        for i, dig in enumerate(f.split('.')[1]):
+            if dig != '0': return -(i+1)
+        return 0
     else:
-        count = -1
-        for i in b:
-            if i != '0':
-                break
-            count -= 1
-        return count
+        return len(f.split('.')[0]) - 1
 
+def round_down(f, prec):
+    fs = str(f)
+    if fs.find('.') == -1:
+        return f
+    else:
+        intger = len(fs.split('.')[0])
+        pos = intger + 1 + prec
+        return float(fs[:pos])
 
-def chopping(digit):
-    ep = exp(digit) + 1
-    base = digit / (10**ep)
-    r = 10**precision
-    formats = '{:.' + str(precision) + 'f}*10^{}'
-    return formats.format(int(base*r)/r, ep)
+def stand(a, prec):
+    if a == 0 or a == 0.0:
+        pos = 0
+    else:
+        pos = 1 + significance(a)
+        print(significance(a), pos)
+    power = 10 ** -pos
+    s = round_down(a * power, prec)
+    return s, pos
 
-str1, str2 = chopping(digit_1), chopping(digit_2)
+pa = '{:.{prec}f}*10^{}'.format(*stand(a, prec), prec=prec)
+pb = '{:.{prec}f}*10^{}'.format(*stand(b, prec), prec=prec)
 
-if str1 == str2:
-    print('YES {}'.format(str1))
+if pa == pb:
+    print('YES {}'.format(pa))
 else:
-    print('NO {} {}'.format(str1, str2))
+    print('NO {} {}'.format(pa, pb))

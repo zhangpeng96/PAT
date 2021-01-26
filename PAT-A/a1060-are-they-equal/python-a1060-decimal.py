@@ -30,9 +30,8 @@ def stand(a, prec):
     s = a * power
     return s, pos
 
-formats = '{:.' + str(prec) + 'f}*10^{}'
-pa = formats.format(*stand(a, prec))
-pb = formats.format(*stand(b, prec))
+pa = '{:.{prec}f}*10^{}'.format(*stand(a, prec), prec=prec)
+pb = '{:.{prec}f}*10^{}'.format(*stand(b, prec), prec=prec)
 
 if pa == pb:
     print('YES {}'.format(pa))
