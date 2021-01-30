@@ -3,7 +3,7 @@
     @version  : 21.0130
     @author   : zhangpeng96
     @time     : 54'00"
-    @accepted : p1~p3 timeout, p4 error
+    @accepted : p1~p3 timeout
 """
 
 class Stack():
@@ -37,6 +37,6 @@ for _ in range(count):
         except:
             print('Invalid')
     elif command == 'Push':
-        stack.push(arg[0])
+        stack.push(int(arg[0]))
     else:
         print('Invalid')
