@@ -16,19 +16,18 @@ def create(preLeft, preRight, postLeft, postRight):
     if preLeft == preRight:
         return Node(pre_order[preLeft])
     if pre_order[preLeft] == post_order[postRight]:
+        node = Node()
         i = preLeft + 1
         while i <= preRight and pre_order[i] != post_order[postRight-1]:
             i += 1
         leftTree = i - preLeft - 1
         if i - preLeft > 1:
-            node = Node()
             node.left = create(preLeft + 1, i - 1, postLeft, postLeft + leftTree - 1)
         else:
             global unique
             unique = False
-            node = Node()
-    node.val = post_order[postRight]
-    node.right = create(i, preRight, postLeft + leftTree, postRight - 1)
+        node.val = post_order[postRight]
+        node.right = create(i, preRight, postLeft + leftTree, postRight - 1)
     return node
 
 def in_order(root, lst):
