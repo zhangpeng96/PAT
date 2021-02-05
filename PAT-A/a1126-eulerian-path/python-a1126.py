@@ -15,7 +15,7 @@ def dfs(v):
     visited[v] = True
     global count
     count += 1
-    for vert in adjacency[v]:
+    for vert in adjacency.get(v, []):
         if not visited.get(vert, False):
             dfs(vert)
 
@@ -32,9 +32,12 @@ degree_odd = [ d % 2 for d in degree ]
 amount = Counter(degree_odd)
 
 print(' '.join(map(str, degree)))
-if amount.get(0, 0) == vert and count == vert:
-    print('Eulerian')
-elif amount.get(1, 0) == 2 and amount.get(0, 0) == (vert-2) and count == vert:
-    print('Semi-Eulerian')
+if count == vert:
+    if amount.get(0, 0) == vert:
+        print('Eulerian')
+    elif amount.get(1, 0) == 2 and amount.get(0, 0) == (vert-2):
+        print('Semi-Eulerian')
+    else:
+        print('Non-Eulerian')
 else:
     print('Non-Eulerian')
