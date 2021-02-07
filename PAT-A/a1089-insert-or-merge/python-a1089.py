@@ -4,11 +4,12 @@
     @author   : zhangpeng96
     @time     : 46'06"
     @accepted : all
+    @desc     : p4要考虑插入排序的值有相同的情况 L12
 """
 
 def insertion_feature(a, b):
     inserted = 1
-    while b[inserted] > b[inserted-1]:
+    while b[inserted] >= b[inserted-1]:
         inserted += 1
         if inserted == len(b)-1:
             return sorted(b)
