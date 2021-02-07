@@ -2,7 +2,7 @@
     @name      : b1080
     @version   : 21.0207
     @author    : zhangpeng96
-    @pass_rate : p1, p3 error
+    @pass_rate : all
 """
 
 from sys import stdin
@@ -24,7 +24,7 @@ def calculate(args):
 p, m, f = map(int, input().split())
 lines = stdin.readlines()
 report = {}
-grades = [ lines[0:p], lines[p:p+m], lines[f:] ]
+grades = [ lines[0:p], lines[p:p+m], lines[p+m:] ]
 
 for i, stage in enumerate(grades):
     for grade in stage:
