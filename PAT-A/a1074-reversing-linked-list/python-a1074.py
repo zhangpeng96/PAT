@@ -3,8 +3,10 @@
     @version  : 21.0208
     @author   : zhangpeng96
     @time     : >60'00"
-    @accepted : p5 timeout
+    @accepted : all
 """
+
+from sys import stdin
 
 def link_output(ll, head):
     if head in ll:
@@ -40,13 +42,11 @@ def partition_reverse(ll, head, length):
     return precr, succr
 
 
-link_list = {}
 head, count, k = input().split()
 count, k = int(count), int(k)
 
-for _ in range(count):
-    name, data, succr = input().split()
-    link_list[name] = [data, succr]
+lines = stdin.readlines()
+link_list = dict( zip(map(lambda x:x.split()[0], lines), map(lambda x:x.split()[1:], lines)) )
 
 count = link_length(link_list, head)
 
