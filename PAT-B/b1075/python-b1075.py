@@ -6,16 +6,14 @@
     @accepted : p5 timeout
 """
 
-# from sys import stdin
+from sys import stdin
 
 head, count, k = input().split()
 count, k = int(count), int(k)
 
-# lines = stdin.readlines()
-# link_list = dict( zip(map(lambda x:x.split()[0], lines), map(lambda x:x.split()[1:], lines)) )
 link_list = {}
-for _ in range(count):
-    address, data, succr = input().split()
+for line in stdin.readlines():
+    address, data, succr = line.split()
     link_list[address] = [int(data), succr, 9999999]
 
 order = 0
