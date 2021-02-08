@@ -1,3 +1,11 @@
+"""
+    @name     : b1075
+    @version  : 21.0208
+    @author   : zhangpeng96
+    @time     : 60'00"
+    @accepted : p5 timeout
+"""
+
 # from sys import stdin
 
 head, count, k = input().split()
@@ -36,4 +44,4 @@ link_list = sorted(link_list.items(), key=lambda x:x[1][2])
 
 for i in range(order-1):
     print('{} {} {}'.format(link_list[i][0], link_list[i][1][0], link_list[i+1][0]))
-print('{} {} -1'.format(link_list[i+1][0], link_list[i+1][1][0]))
+print('{} {} -1'.format(link_list[order-1][0], link_list[order-1][1][0]))
