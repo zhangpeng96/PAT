@@ -3,11 +3,13 @@
     @version  : 21.0218
     @author   : zhangpeng96
     @time     : 36'00"
-    @accepted : p4 error
+    @accepted : all
 """
 
-father = {}
-count = {}
+import sys
+from collections import defaultdict
+
+sys.setrecursionlimit(50000)
 
 def find(x):
     if x == father[x]:
@@ -22,19 +24,20 @@ def union(a, b):
         father[fatherA] = fatherB
 
 
+father = {}
+count = defaultdict(int)
+
 for _ in range(int(input())):
     birds = map(int, input().split()[1:])
     bird_root = next(birds)
-    if bird_root not in father:
-        father[bird_root] = bird_root
+    father.setdefault(bird_root, bird_root)
     for bird in birds:
-        if bird not in father:
-            father[bird] = bird
+        father.setdefault(bird, bird)
         union(bird_root, bird)
 
 for bird in father.keys():
     bird_root = find(bird)
-    count[bird_root] = count.get(bird_root,0) + 1
+    count[bird_root] += 1
 
 tree_n, bird_n = len(count), sum(count.values())
 print(tree_n, bird_n)
