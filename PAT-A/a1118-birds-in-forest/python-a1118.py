@@ -3,13 +3,11 @@
     @version  : 21.0218
     @author   : zhangpeng96
     @time     : 36'00"
-    @accepted : p3 timeout, p4 error
+    @accepted : p4 error
 """
 
-father = list(range(0, 10010))
-# 注意从0开始
-exist = [False]*10011
-cnt = {}
+father = {}
+count = {}
 
 def find(x):
     if x == father[x]:
@@ -25,21 +23,20 @@ def union(a, b):
 
 
 for _ in range(int(input())):
-    birds = list(map(int, input().split()[1:]))
-    bird_root = birds[0]
-    exist[bird_root] = True
-    for bird in birds[1:]:
+    birds = map(int, input().split()[1:])
+    bird_root = next(birds)
+    if bird_root not in father:
+        father[bird_root] = bird_root
+    for bird in birds:
+        if bird not in father:
+            father[bird] = bird
         union(bird_root, bird)
-        exist[bird] = True
 
+for bird in father.keys():
+    bird_root = find(bird)
+    count[bird_root] = count.get(bird_root,0) + 1
 
-for bird, is_exist in enumerate(exist[1:], 1):
-    if is_exist:
-        bird_root = find(bird)
-        cnt[bird_root] = cnt.get(bird_root, 0) + 1
-
-tree_n, bird_n = len(cnt), sum(cnt.values())
-
+tree_n, bird_n = len(count), sum(count.values())
 print(tree_n, bird_n)
 
 for _ in range(int(input())):
@@ -48,4 +45,3 @@ for _ in range(int(input())):
         print('Yes')
     else:
         print('No')
-
