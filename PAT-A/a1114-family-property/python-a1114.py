@@ -17,9 +17,6 @@ class Family():
     def calc(self):
         self.estate = sum(self.estates) / self.population
         self.area = sum(self.areas) / self.population
-    def __repr__(self):
-        return '({} {} {})'.format(self.population, self.estates, self.areas)
-
 
 def find(x):
     if x == father[x]:
@@ -37,14 +34,12 @@ def union(a, b):
 
 
 father = {}
-people = set()
 properties = {}
 report = {}
 
 for _ in range(int(input())):
     uid, father_id, mother_id, _, *children, estate, area = map(int, input().split())
     properties[uid] = (estate, area)
-    people.update([uid, father_id, mother_id, *children])
     father.setdefault(uid, uid)
     for parent_id in [father_id, mother_id]:
         if parent_id != -1:
@@ -54,14 +49,12 @@ for _ in range(int(input())):
         father.setdefault(child_id, child_id)
         union(uid, child_id)
 
-people.discard(-1)
-
-# for uid in father.keys():
-for uid in people:
+for uid in father.keys():
     root = find(uid)
+    # 因为人数是一定每轮要做计算的，所以先根据最高长辈命名判断是否有这个家庭，再创建记录人口
     if root not in report: report[root] = Family()
     report[root].population += 1
-
+    # 所有的人有的没有财产的，因此先判断这个人有没有财产，有再计入最高长辈命名的家庭名下
     if uid in properties:
         estate, area = properties[uid]
         report[root].estates.append(estate)
