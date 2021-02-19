@@ -13,8 +13,12 @@ sys.setrecursionlimit(100000)
 
 def dfs(root, nodes, depth):
     if not nodes[root]:
-        retailer[depth] += 1
-        return
+        if depth > retailer['min']:
+            return
+        else:
+            retailer[depth] += 1
+            retailer['min'] = depth
+            return
     for node in nodes[root]:
         dfs(node, nodes, depth+1)
 
@@ -24,11 +28,13 @@ count, price, rate = int(count), float(price), 1+(float(rate)/100)
 
 nodes = []
 retailer = defaultdict(int)
+retailer['min'] = 999999
 
 for line in sys.stdin.readlines():
     nodes.append( list(map(int, line.split()[1:])) )
 
 dfs(0, nodes, 0)
+del retailer['min']
 
 depth, number = sorted(retailer.items())[0]
 total = price * rate**depth
