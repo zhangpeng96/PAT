@@ -6,9 +6,10 @@
     @accepted : p5 timeout
 """
 
+from sys import stdin
+
 class Node():
-    def __init__(self, value, rear):
-        self.value = value
+    def __init__(self, rear):
         self.next = rear
         self.visited = False
 
@@ -17,8 +18,8 @@ no_shared = True
 
 head1, head2, count = input().split()
 for _ in range(int(count)):
-    head, value, rear = input().split()
-    data[head] = Node(value, rear)
+    head, _, rear = input().split()
+    data[head] = Node(rear)
 
 while head1 != '-1':
     data[head1].visited = True
