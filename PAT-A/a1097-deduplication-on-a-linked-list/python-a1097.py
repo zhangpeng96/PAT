@@ -6,6 +6,8 @@
     @accepted : p3, p4 timeout
 """
 
+from sys import stdin
+
 def print_sorted_linked(ll):
     # p2 要考虑没有重复值的情况，也就是结果链表为空
     if ll:
@@ -19,9 +21,9 @@ key_pool = set()
 linked = {}
 unique_linked, duplicate_linked = [], []
 
-for _ in range(int(count)):
-    address, key, succr = input().split()
-    linked[address] = [key, succr]
+for line in stdin.readlines():
+    address, *value = line.split()
+    linked[address] = value
 
 while head != '-1':
     key, succr = linked[head]
