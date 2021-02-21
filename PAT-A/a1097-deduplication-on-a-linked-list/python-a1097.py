@@ -14,24 +14,23 @@ def print_sorted_linked(ll):
         print('{} {} -1'.format(*ll[-1]))
 
 
-header, count = input().split()
+head, count = input().split()
 key_pool = set()
 linked = {}
 unique_linked, duplicate_linked = [], []
 
 for _ in range(int(count)):
     address, key, succr = input().split()
-    linked[address] = [int(key), succr, False]
+    linked[address] = [key, succr]
 
-head = header
 while head != '-1':
-    value, succr, _ = linked[head]
-    value_a = abs(value)
-    if value_a in key_pool:
-        duplicate_linked.append([head, value])
+    key, succr = linked[head]
+    absolute = abs(int(key))
+    if absolute in key_pool:
+        duplicate_linked.append([head, key])
     else:
-        unique_linked.append([head, value])
-    key_pool.add(value_a)
+        unique_linked.append([head, key])
+    key_pool.add(absolute)
     head = succr
 
 print_sorted_linked(unique_linked)
