@@ -3,7 +3,7 @@
     @version  : 21.0221
     @author   : zhangpeng96
     @time     : >60'00"
-    @accepted : p0, p1 error, p4 timeout
+    @accepted : p4 timeout
 """
 
 from collections import defaultdict
@@ -16,7 +16,8 @@ def bfs(query):
         curr = queue[0]
         queue.pop(0)
         for rear in net[curr]:
-            layer[rear] = layer[curr] + 1
+            if not visited[rear]:
+                layer[rear] = layer[curr] + 1
             if (not visited[rear]) and (layer[rear] <= level_limit):
                 queue.append(rear)
                 visited[rear] = True
