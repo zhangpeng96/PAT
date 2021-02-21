@@ -3,14 +3,14 @@
     @version  : 21.0221
     @author   : zhangpeng96
     @time     : >60'00"
-    @accepted : p4 timeout
+    @accepted : all
 """
 
-from collections import defaultdict
+from sys import stdin
 
-def bfs(query):
+def bfs(query, length):
     count = 0
-    visited, layer = defaultdict(bool), defaultdict(int)
+    visited, layer = [False] * (length+1), [0] * (length+1)
     queue, visited[query], layer[query] = [query], True, 0
     while queue:
         curr = queue[0]
@@ -18,20 +18,20 @@ def bfs(query):
         for rear in net[curr]:
             if not visited[rear]:
                 layer[rear] = layer[curr] + 1
-            if (not visited[rear]) and (layer[rear] <= level_limit):
-                queue.append(rear)
-                visited[rear] = True
-                count += 1
+                if layer[rear] <= layer_limit:
+                    queue.append(rear)
+                    visited[rear] = True
+                    count += 1
     return count
 
 
-net = defaultdict(list)
-count, level_limit = map(int, input().split())
-for i in range(1, count+1):
-    for follower in map(int, input().split()[1:]):
+length, layer_limit = map(int, input().split())
+net = [ [] for _ in range(length+1) ]
+
+lines = stdin.readlines()
+for i, line in enumerate(lines[:-1], 1):
+    for follower in map(int, line.split()[1:]):
         net[follower].append(i)
 
-# print(net)
-
-for query in map(int, input().split()[1:]):
-    print(bfs(query))
+for query in map(int, lines[-1].split()[1:]):
+    print(bfs(query, length))
