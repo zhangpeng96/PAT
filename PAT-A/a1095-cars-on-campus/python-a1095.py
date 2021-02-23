@@ -6,6 +6,7 @@
     @accepted : p1,p2,p4 timeout
 """
 
+from sys import stdin
 from collections import defaultdict
 
 def time_to_int(string):
@@ -22,9 +23,10 @@ record_count, query_count = map(int, input().split())
 record_pair = []
 record = defaultdict(list)
 park_time = defaultdict(int)
+lines = stdin.readlines()
 
-for _ in range(record_count):
-    plate, times, io = input().split()
+for line in lines[:record_count]:
+    plate, times, io = line.split()
     record[plate].append( (time_to_int(times), io) )
 
 for plate, group in record.items():
@@ -38,9 +40,9 @@ for plate, group in record.items():
         else:
             i += 1
 
-for _ in range(query_count):
+for line in lines[record_count:]:
     count = 0
-    query = time_to_int(input())
+    query = time_to_int(line)
     for _, inside, outside in record_pair:
         if inside <= query < outside:
             count += 1
