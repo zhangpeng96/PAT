@@ -3,11 +3,11 @@
     @version  : 21.0223
     @author   : zhangpeng96
     @time     : 22'00"
-    @accepted : p2 error
+    @accepted : all
 """
 
 def judge(n, arr, vertex):
-    if arr[0] != arr[-1] or n != (vertex+1):
+    if arr[0] != arr[-1] or n != (vertex+1) or len(set(arr)) != vertex:
         return False
     for v1, v2 in zip(arr[:-1], arr[1:]):
         if not graph[v1][v2]: return False
