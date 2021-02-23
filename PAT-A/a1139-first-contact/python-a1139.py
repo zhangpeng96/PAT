@@ -3,7 +3,7 @@
     @version  : 21.0223
     @author   : zhangpeng96
     @time     : 60'00"
-    @accepted : p1,p2 error p5 timeout
+    @accepted : p5 timeout
 """
 
 from collections import defaultdict
@@ -13,9 +13,9 @@ table = defaultdict(list)
 matrix = defaultdict(bool)
 
 for _ in range(edge):
-    v1, v2 = map(int, input().split())
-    same = True if v1 * v2 > 0 else False
-    v1, v2 = abs(v1), abs(v2)
+    v1, v2 = input().split()
+    same = True if len(v1) == len(v2) else False
+    v1, v2 = abs(int(v1)), abs(int(v2))
     matrix[v1, v2] = True
     matrix[v2, v1] = True
     if same > 0:
