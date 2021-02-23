@@ -6,14 +6,16 @@
     @accepted : p5 timeout
 """
 
+from sys import stdin
 from collections import defaultdict
 
 vertex, edge = map(int, input().split())
+lines = stdin.readlines()
 table = defaultdict(list)
 matrix = defaultdict(bool)
 
-for _ in range(edge):
-    v1, v2 = input().split()
+for line in lines[:edge]:
+    v1, v2 = line.split()
     same = True if len(v1) == len(v2) else False
     v1, v2 = abs(int(v1)), abs(int(v2))
     matrix[v1, v2] = True
@@ -22,9 +24,9 @@ for _ in range(edge):
         table[v1].append(v2)
         table[v2].append(v1)
 
-for _ in range(int(input())):
+for line in lines[edge+1:]:
     friends = []
-    a, b = map(lambda x:abs(int(x)), input().split())
+    a, b = map(lambda x:abs(int(x)), line.split())
     for c in table[a]:
         if c != b:
             for d in table[b]:
