@@ -3,8 +3,10 @@
     @version  : 21.0224
     @author   : zhangpeng96
     @time     : >60'00"
-    @accepted : p6 timeout
+    @accepted : all
 """
+
+from sys import stdin
 
 def dfs(v1):
     visited[v1] = True
@@ -21,8 +23,8 @@ visited = [False] * (vert+1)
 degrees = [0] * (vert+1)
 matrix = [ [0] * (vert+1) for _ in range(vert+1) ]
 
-for _ in range(edge):
-    v1, v2 = map(int, input().split())
+for line in stdin.readlines():
+    v1, v2 = map(int, line.split())
     matrix[v1][v2] = True
     matrix[v2][v1] = True
     degrees[v1] += 1
