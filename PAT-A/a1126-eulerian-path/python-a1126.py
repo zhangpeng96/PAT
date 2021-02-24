@@ -1,40 +1,40 @@
 """
     @name     : a1126
-    @version  : 21.0205
+    @version  : 21.0224
     @author   : zhangpeng96
     @time     : >60'00"
-    @accepted : p4 error, p6 timeout
+    @accepted : p6 timeout
 """
-
-from collections import Counter, defaultdict
 
 def dfs(v1):
     visited[v1] = True
     count['all'] += 1
     for v2 in range(1, vert+1):
-        if not visited[v2] and matrix[v1, v2]:
+        if not visited[v2] and matrix[v1][v2]:
             dfs(v2)
 
 
-count = {'all': 0, 'odd': 0}
-visited, matrix, degrees = defaultdict(bool), defaultdict(bool), defaultdict(int)
-
 vert, edge = map(int, input().split())
+
+count = {'all': 0, 'odd': 0}
+visited = [False] * (vert+1)
+degrees = [0] * (vert+1)
+matrix = [ [0] * (vert+1) for _ in range(vert+1) ]
+
 for _ in range(edge):
     v1, v2 = map(int, input().split())
-    matrix[v1, v2] = True
-    matrix[v2, v1] = True
+    matrix[v1][v2] = True
+    matrix[v2][v1] = True
     degrees[v1] += 1
     degrees[v2] += 1
 
 dfs(1)
 
-for degree in degrees.values():
-    if degree % 2:
+for v in range(1, vert+1):
+    if degrees[v] % 2:
         count['odd'] += 1
 
-print(*map(lambda x: x[1], sorted(degrees.items())))
-
+print(*degrees[1:vert+1])
 if count['all'] == vert:
     if count['odd'] == 0:
         print('Eulerian')
