@@ -6,13 +6,12 @@
     @accepted : p4 timeout
 """
 
+from sys import stdin
 from collections import defaultdict
 
 class NA():
     def __lt__(self, other):
         return True
-    def __gt__(self, other):
-        return False
     def __add__(self, other):
         return other
     def __radd__(self, other):
@@ -25,8 +24,8 @@ full_marks = [0] + list(map(int, input().split()))
 record = defaultdict(lambda: [NA()]*(problems+1) + [0])
 failed = defaultdict(list)
 
-for _ in range(submissions):
-    name, pos, score = map(int, input().split())
+for line in stdin.readlines():
+    name, pos, score = map(int, line.split())
     if score == -1:
         failed[name].append(pos)
     else:
