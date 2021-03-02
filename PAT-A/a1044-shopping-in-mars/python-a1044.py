@@ -9,7 +9,6 @@
 """
 
 from itertools import accumulate
-from collections import defaultdict
 
 def binary_search(target, low, high):
     left, right = low, high
@@ -22,7 +21,7 @@ def binary_search(target, low, high):
     return right
 
 
-result = defaultdict(list)
+result, loss_min = [], float('inf')
 count, pay = map(int, input().split())
 chain = map(int, ('0 ' + input()).split())
 chain = list(accumulate(chain))
@@ -30,8 +29,13 @@ chain = list(accumulate(chain))
 for left in range(1, count+1):
     right = binary_search(pay, left, count)
     amount = chain[right] - chain[left-1]
+    if amount > loss_min:
+        continue
     if amount >= pay:
-        result[amount].append((left, right))
+        if amount < loss_min:
+            loss_min = amount
+            result = []
+        result.append((left, right))
 
-for pair in result[min(result.keys())]:
+for pair in result:
     print('{}-{}'.format(*pair))
