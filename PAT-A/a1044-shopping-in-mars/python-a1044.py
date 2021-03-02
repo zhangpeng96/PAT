@@ -11,10 +11,11 @@
 from itertools import accumulate
 from collections import defaultdict
 
-def binary_search(target, left, right):
+def binary_search(target, low, high):
+    left, right = low, high
     while left < right:
         mid = (left + right) //2
-        if (chain[mid] - chain[left-1]) >= target:
+        if (chain[mid] - chain[low-1]) >= target:
             right = mid
         else:
             left = mid + 1
