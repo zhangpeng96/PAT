@@ -39,7 +39,7 @@ while True:
         if graph[v][w] != inf and not collected[w]:
             if dist[v] + graph[v][w] < dist[w]:
                 dist[w] = dist[v] + graph[v][w]
-                # 途中的两个点之间找到更短的，所以更短路径数不变（之前的点可能有多条等长都到v点，因此不能归1，要保持v点数目）
+                # 途中的两个点之间找到更短的，所以更短路径数不变（之前的点可能有多条等长都到v点，因此不能归1，要保持v点数目）Y
                 count[w] = count[v]
                 # 这里team更新是因为没得选择，必须带上
                 team[w] = team[v] + rescue[w]
