@@ -1,14 +1,21 @@
-from math import inf
-from copy import copy
-from types import SimpleNamespace
-# from pprint import pprint as print
+"""
+    @name     : a1018
+    @version  : 21.0306
+    @author   : zhangpeng96
+    @time     : >60'00"
+    @accepted : all
+"""
 
+from math import inf
+from types import SimpleNamespace
+
+
+bike = [0]
 capcaity, stations, problems, roads = map(int, input().split())
-perfect = capcaity // 2
-bike = [0] + list(map(int, input().split()))
+for i in map(int, input().split()):
+    bike.append(i - capcaity//2)
 
 spot = stations + 1
-# minimum = {'need': inf, 'back': inf}
 mini = SimpleNamespace(need=inf, back=inf, path=[])
 time = [ [inf] * spot for _ in range(spot) ]
 
@@ -42,26 +49,25 @@ def Dijkstra(source):
     return pre
 
 
-def dfs(v, temp_path, pre):
+def dfs(v, temp_path):
     temp_path.append(v)
     if v == 0:
         need, back = 0, 0
         for i in temp_path[::-1]:
             # 当车站的存车过多时，归还多余的车
-            if bike[i] > perfect:
-                back += (bike[i] - perfect)
+            if bike[i] > 0:
+                back += bike[i]
             # 当车站的存车不足时，补充车
             else:
                 # 如果归还的车足够补充，则取走要归还的车
-                if back > perfect - bike[i]:
-                    back -= (perfect - bike[i])
+                if back > 0 - bike[i]:
+                    back += bike[i]
                 # 如果归还的车不够补充，归还的车除了都用来补充外，再从管理处拿车补充
                 else:
                     # 注意顺序，先调用back，再清空back
-                    print(bike[i], back, need)
-                    need += (perfect - bike[i] - back)
+                    need += (0 - bike[i] - back)
                     back = 0
-
+        # 条件判断
         if need < mini.need:
             mini.need = need
             mini.back = back
@@ -73,15 +79,10 @@ def dfs(v, temp_path, pre):
         return
     # 遍历所有可能性
     for u in pre[v]:
-        dfs(u, temp_path, pre)
+        dfs(u, temp_path)
     temp_path.pop()
 
 
-
 pre = Dijkstra(0)
-print(pre)
-dfs(problems, [], pre)
-
+dfs(problems, [])
 print(mini.need, '->'.join(map(str, mini.path)), mini.back)
-
-print(mini)
