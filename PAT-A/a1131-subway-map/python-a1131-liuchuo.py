@@ -3,7 +3,7 @@
     @version  : 21.0307
     @author   : zhangpeng96
     @time     : >60'00"
-    @accepted : p1-p5 error, p3 timeout
+    @accepted : p1,p2,p5 error, p3 timeout
 """
 
 from math import inf
@@ -50,7 +50,7 @@ def print_path(path):
     for i, s2 in enumerate(path, 1):
         if len(line[s2]) > 1 or i == len(path):
             name = line[s1] & line[s2]
-            print('Take Line#{} from {} to {}.'.format(*name, s1, s2))
+            print('Take Line#{} from {:04} to {:04}.'.format(*name, s1, s2))
             s1 = s2
 
 
