@@ -3,7 +3,7 @@
     @version  : 21.0307
     @author   : zhangpeng96
     @time     : >60'00"
-    @accepted : p1,p2,p5 error, p3 timeout
+    @accepted : p1,p2,p3,p5 error
 """
 
 from math import inf
@@ -23,6 +23,8 @@ def find_transfer(path):
     return sum(count)
 
 def dfs(root, station, temp_path):
+    if station > mini.station:
+        return
     # 如果到达终点，判断该条路径最优条件
     if root == end:
         # 先优先选取经过站点最少的路径
