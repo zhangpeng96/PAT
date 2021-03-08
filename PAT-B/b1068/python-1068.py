@@ -1,13 +1,13 @@
 """
     @name     : b1068
-    @version  : 21.0308
+    @version  : 21.0308.2
     @author   : zhangpeng96
     @time     : 40'00"
-    @accepted : p4 timeout
+    @accepted : all
 """
 
-# from pprint import pprint as print
-from collections import Counter
+from sys import stdin
+from collections import defaultdict
 
 def check_bit(i, j):
     checked = bitmap[i][j]
@@ -20,9 +20,14 @@ def check_bit(i, j):
 
 
 width, height, threshold = map(int, input().split())
-bitmap = [ list( map(int, input().split()) ) for _ in range(height) ]
-counter = Counter(sum(bitmap, []))
+bitmap = [ list( map(int, line.split()) ) for line in stdin.readlines() ]
 bitmap = tuple(zip(*bitmap))
+
+counter = defaultdict(int)
+for i in range(width):
+    for j in range(height):
+        if counter[bitmap[i][j]] < 2:
+            counter[bitmap[i][j]] += 1
 
 count = 0
 result = tuple()
@@ -30,9 +35,10 @@ result = tuple()
 for i in range(width):
     for j in range(height):
         bit = bitmap[i][j]
-        if counter[bit] == 1 and check_bit(i, j):
-            result = (i+1, j+1, bitmap[i][j])
-            count += 1
+        if counter[bit] < 2:
+            if check_bit(i, j):
+                result = (i+1, j+1, bit)
+                count += 1
 
 if count == 1:
     print('({}, {}): {}'.format(*result))
