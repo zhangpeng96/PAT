@@ -3,11 +3,8 @@
     @version  : 21.0308
     @author   : zhangpeng96
     @time     : ~4h
-    @accepted : p8 error
+    @accepted : all
 """
-
-from math import ceil
-
 
 def time_to_second(string):
     h, m, s = map(int, string.split(':'))
@@ -17,6 +14,9 @@ def second_to_time(integer):
     h, ms = divmod(integer, 3600)
     m, s = divmod(ms, 60)
     return '{:02}:{:02}:{:02}'.format(h, m, s)
+
+def minute_round(second):
+    return (second + 30) // 60
 
 class Queue():
     def __init__(self):
@@ -124,6 +124,6 @@ while q_vip or q_normal:
 
 
 for custom in result:
-    print('{} {} {}'.format(second_to_time(custom.arrive), second_to_time(custom.serve), ceil(custom.wait/60)))
+    print('{} {} {}'.format(second_to_time(custom.arrive), second_to_time(custom.serve), minute_round(custom.wait)))
 
 print(*[ t.count for t in table])
