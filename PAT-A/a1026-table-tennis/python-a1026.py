@@ -3,7 +3,7 @@
     @version  : 21.0308
     @author   : zhangpeng96
     @time     : ~4h
-    @accepted : p1,p2,p8 error
+    @accepted : p8 error
 """
 
 from math import ceil
@@ -100,7 +100,7 @@ while q_vip or q_normal:
     if q_vip.empty():
         next_custom = q_normal.front()
         q_normal.pop()
-    elif q_normal.empty() or q_vip.front() < next_table:
+    elif q_normal.empty() or (next_table.vip and q_vip.front() <= next_table):
         next_custom = q_vip.front()
         q_vip.pop()
     else:
