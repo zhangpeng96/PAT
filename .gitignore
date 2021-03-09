@@ -3,6 +3,7 @@
 .test/
 .temp/
 draft/
+PAT-Exam/
 
 # Project files
 .vscode/
