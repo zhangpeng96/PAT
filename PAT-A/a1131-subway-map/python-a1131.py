@@ -1,6 +1,6 @@
 """
     @name     : a1131
-    @version  : 21.0309
+    @version  : 21.0309.2
     @author   : zhangpeng96
     @time     : >60'00"
     @accepted : all
@@ -29,20 +29,16 @@ def find_transfer(path):
 def dfs(root, station, temp_path):
     if station > mini.station:
         return
-    # 如果到达终点，判断该条路径最优条件
     if root == end:
-        # 先优先选取经过站点最少的路径
         if station < mini.station:
             mini.station = station
             mini.transfer = find_transfer(temp_path)
             mini.path = copy(temp_path)
-        # 若经过站点数相同，则选择换乘站最少的路径
         elif station == mini.station and find_transfer(temp_path) < mini.transfer:
             mini.station = station
             mini.transfer = find_transfer(temp_path)
             mini.path = copy(temp_path)
         return
-    # 遍历邻接表
     for child in adj[root]:
         if not visit[child]:
             visit[child] = True
@@ -52,15 +48,16 @@ def dfs(root, station, temp_path):
             temp_path.pop()
 
 def print_path(path):
-    pre_line, pre_transfer = 0, path[0]
-    for i in range(1, len(path)):
-        now_line = line[ path[i-1], path[i] ]
-        if now_line != pre_line:
-            if pre_line:
-                print('Take Line#{} from {:04} to {:04}.'.format(pre_line, pre_transfer, path[i-1]))
-            pre_line = now_line
-            pre_transfer = path[i-1]
-    print('Take Line#{} from {:04} to {:04}.'.format(pre_line, pre_transfer, path[-1]))
+    # 先把首站看成换乘站，线路初始化为0，也就是只要走就算换线路
+    line1, stop_end, transfer = 0, path[-1], path[0]
+    for stop1, stop2 in pair_wise(path):
+        line2 = line[stop1, stop2]
+        # 如果A到B走的线路与之前不同，那么说明A为换乘站（B还没走怎么知道换不换）
+        if line2 != line1:
+            if line1:   # 从O点开始第1步必然没有换线，所以忽略
+                print('Take Line#{} from {:04} to {:04}.'.format(line1, transfer, stop1))
+            line1, transfer = line2, stop1
+    print('Take Line#{} from {:04} to {:04}.'.format(line1, transfer, stop_end))
 
 
 adj = defaultdict(list)
