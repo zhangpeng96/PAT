@@ -1,48 +1,62 @@
+from math import inf
+from heapq import heapify
 from collections import defaultdict
 
-
 nodes = defaultdict(int)
-node, query = map(int, input().split())
-ins = sorted(map(int, input().split()), reverse=True)
-for i, n in enumerate(ins, 1):
-    nodes[n] = i
+count, query = map(int, input().split())
+ins = map(int, input().split())
+
+def max_heapify(arr):
+    arr = list(map(lambda x:-x, arr))
+    heapify(arr)
+    return list( map(lambda y:-y, arr) )
+
+for i, val in enumerate(max_heapify(ins), 1):
+    nodes[val] = i
+
+def judge(arg):
+    length = len(arg)
+    # root
+    if length == 4:
+        x = nodes[ int(arg[0]) ]
+        if x == 1:
+            return True
+        else:
+            return False
+    # sbling
+    elif length == 5:
+        x, y = nodes[ int(arg[0]) ], nodes[ int(arg[2]) ]
+        if (x % 2 == 0 and y == x + 1) or (y % 2 == 0 and x == y + 1):
+            return True
+        else:
+            return False
+    # parent
+    elif length == 6:
+        x, y = nodes[ int(arg[0]) ], nodes[ int(arg[5]) ]
+        if x == y // 2:
+            return True
+        else:
+            return False
+    # children
+    elif length == 7:
+        x, y = nodes[ int(arg[0]) ], nodes[ int(arg[6]) ]
+        if arg[3] == 'left':
+            if x == y * 2:
+                return True
+            else:
+                return False
+        elif arg[3] == 'right':
+            if x == y * 2 + 1:
+                return True
+            else:
+                return False
 
 for _ in range(query):
-    args = input().split()
-    if len(args) == 4:
-        a = int(args[0])
-        x = nodes[a]
-        if x == 1:
-            print(1, end='')
-        else:
-            print(0, end='')
-    elif len(args) == 5:
-        a, b = int(args[0]), int(args[2])
-        x, y = nodes[a], nodes[b]
-        if (x % 2 == 0 and y == x + 1) or (y % 2 == 0 and x == y + 1):
-            print(1, end='')
-        else:
-            print(0, end='')
-    elif len(args) == 6:
-        a, b = int(args[0]), int(args[5])
-        x, y = nodes[a], nodes[b]
-        if x == y // 2:
-            print(1, end='')
-        else:
-            print(0, end='')
-    elif len(args) == 7:
-        a, b = int(args[0]), int(args[6])
-        x, y = nodes[a], nodes[b]
-        if args[3] == 'left':
-            if a == b * 2:
-                print(1, end='')
-            else:
-                print(0, end='')
-        elif args[3] == 'right':
-            if a == b * 2 + 1:
-                print(1, end='')
-            else:
-                print(0, end='')
+    arg = input().split()
+    if judge(arg):
+        print(1, end='')
+    else:
+        print(0, end='')
 
 """
 5 6
