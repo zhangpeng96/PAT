@@ -1,17 +1,18 @@
 from math import inf
-from heapq import heapify
+from heapq import heappush
 from collections import defaultdict
 
 nodes = defaultdict(int)
 count, query = map(int, input().split())
 ins = map(int, input().split())
 
-def max_heapify(arr):
-    arr = list(map(lambda x:-x, arr))
-    heapify(arr)
-    return list( map(lambda y:-y, arr) )
+def insert_max_heap(arr):
+    heap = []
+    for value in arr:
+        heappush(heap, -value)
+    return [ -value for value in heap ]
 
-for i, val in enumerate(max_heapify(ins), 1):
+for i, val in enumerate(insert_max_heap(ins), 1):
     nodes[val] = i
 
 def judge(arg):

@@ -1,4 +1,6 @@
 from math import sqrt
+from itertools import combinations
+
 
 def prime(n):
     if n == 1: return False
@@ -11,9 +13,9 @@ def prime(n):
 
 number, end = map(int, input().split())
 primes = [ i for i in range(2, end) if prime(i) ]
-for p in primes:
-    print(p)
 
+s = [ abs(a-b) for a, b in combinations(primes, 2)]
+print(set(s))
 """
 5 1000
 23 263 503 743 983
